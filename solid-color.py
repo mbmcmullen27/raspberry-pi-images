@@ -21,7 +21,7 @@ display.show(splash)
 
 color_bitmap = displayio.Bitmap(280, 240, 1)
 color_palette = displayio.Palette(1)
-color_palette[0] = 0xFF0000
+color_palette[0] = 0x00FF00
 
 bg_sprite = displayio.TileGrid(color_bitmap,
                                pixel_shader=color_palette,
