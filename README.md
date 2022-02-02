@@ -7,6 +7,9 @@ requires packages
 - python3-pil
 - python3-numpy
 - python3-pip
+- python-rpi.gpio (button)
+- python3-rpi.gpio (button)
+
 
 requires pip3 libraries
 - adafruit-circuitpython-display-text==2.21.1
