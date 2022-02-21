@@ -44,10 +44,10 @@ displayio.release_displays()
 
 spi = board.SPI()
 tft_cs = board.CE0
-tft_dc = board.D25
+tft_dc = board.D21
 
 display_bus = displayio.FourWire(
-    spi, command=tft_dc, chip_select=tft_cs, reset=board.D24
+    spi, command=tft_dc, chip_select=tft_cs, reset=board.D14
 )
 display = ST7789(display_bus, width=280, height=240, rowstart=20, rotation=90)
 def button_callback(channel):
