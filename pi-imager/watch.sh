@@ -1,5 +1,6 @@
 #!/bin/bash
 
+let it=1
 DIR='sd'
 FOUND=false
 sudo dmesg -C
@@ -15,8 +16,14 @@ while [ $FOUND == false ]; do
     sudo dd if=imgs/$file of=/dev/$disk bs=4M conv=fsync
     umount /dev/$disk
   else
-    python write-line.py "sleeping..."  
+    str="sleeping"
+    for k in $(eval echo "{1..$it}"); do
+        str+="."
+    done
+    python write-line.py str  
     python write-line.py "                " 2 
     sleep 7
   fi
+  let it++
+  if [ $it -gt 2 ]; then let it=0; fi
 done
