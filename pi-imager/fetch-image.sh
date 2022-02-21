@@ -8,7 +8,9 @@ function fetch() {
 } 
 
 img=$(fetch $url "(?<=href=\")raspios[^\"/]*")
-echo "The latest image build is: $img"
 file=$(fetch $url$img/ "(?<=href=\")[^\./]*.zip")
+
+echo "The latest image build is: $img"
 echo "Downloading $file"
+
 wget $url$img/$file
