@@ -15,3 +15,4 @@ requires pip3 libraries
 - adafruit-circuitpython-display-text==2.21.1
     - the latest version, 2.21.2, causes an 'undefined' error
 - adafruit-circuitpython-st7789
+- adafruit-blinka-displayio
