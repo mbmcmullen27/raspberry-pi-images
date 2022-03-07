@@ -14,4 +14,4 @@ file=$(fetch $url/$img/ "[^\.]*.zip")
 echo "The latest image build is: $img"
 echo "Downloading $file"
 
-wget $url/$img/$file
+wget $url/$img/$file -P imgs/

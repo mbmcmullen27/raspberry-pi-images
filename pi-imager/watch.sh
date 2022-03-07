@@ -16,10 +16,11 @@ while [ $FOUND == false ]; do
     umount /dev/$disk
   else
     str="sleeping"
+    blankln='                    '
     for k in $(eval echo "{1..$it}"); do
         str+="."
     done
-    python write-lines.py "$str" "                " 
+    python write-lines.py "$str" "$blankln" 
     sleep 7
   fi
   let it++
