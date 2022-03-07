@@ -39,19 +39,22 @@ def drawBlinky(splash):
     text_group.append(text_area)  # Subgroup for text scaling
     splash.append(text_group)
 
-blink = bool(True)
-displayio.release_displays()
+def initalizeDisplay():
+    displayio.release_displays()
 
-spi = board.SPI()
-tft_cs = board.CE0
-tft_dc = board.D21
+    spi = board.SPI()
+    tft_cs = board.CE0
+    tft_dc = board.D21
 
-display_bus = displayio.FourWire(
-    spi, command=tft_dc, chip_select=tft_cs, reset=board.D14
-)
-display = ST7789(display_bus, width=280, height=240, rowstart=20, rotation=90)
+    display_bus = displayio.FourWire(
+        spi, command=tft_dc, chip_select=tft_cs, reset=board.D14
+    )
+
+    return ST7789(display_bus, width=280, height=240, rowstart=20, rotation=90)
+
 def button_callback(channel):
     global blink 
+    global display
     splash = displayio.Group()
     display.show(splash)
 
@@ -65,10 +68,12 @@ def button_callback(channel):
         drawColor(0xFF0000, splash)
         drawText("orange", splash, 140, 0x00FFFF)
 
+blink = bool(True)
+display = initalizeDisplay()
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(16,GPIO.RISING,callback=button_callback)
 
-message = input("Press enter to quit\n\n") # Run until someone presses enter
+input("Press enter to quit\n\n") # Run until someone presses enter
 GPIO.cleanup() # Clean up
