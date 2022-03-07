@@ -9,8 +9,7 @@ while [ $FOUND == false ]; do
   disk=$(dmesg | egrep -o mmcblk[0-9])
   if [ -n "$disk" ]; then
     FOUND=true
-    python write-line.py "sd card detected" 
-    python write-line.py "writing image..." 2 
+    python write-lines.py "sd card detected" "writing image..."  
     mount /dev/$disk $DIR
     file=$(ls -1r imgs/ | head -n1)
     sudo dd if=imgs/$file of=/dev/$disk bs=4M conv=fsync
@@ -20,8 +19,7 @@ while [ $FOUND == false ]; do
     for k in $(eval echo "{1..$it}"); do
         str+="."
     done
-    python write-line.py str  
-    python write-line.py "                " 2 
+    python write-lines.py str "                " 
     sleep 7
   fi
   let it++

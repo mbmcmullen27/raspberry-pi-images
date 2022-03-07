@@ -24,20 +24,17 @@ def setupDisplay():
 
     spi = board.SPI()
     tft_cs = board.CE0
-    tft_dc = board.D21
+    tft_dc = board.D15
 
     display_bus = displayio.FourWire(
         spi, command=tft_dc, chip_select=tft_cs, reset=board.D14
     )
-    display = ST7789(display_bus, width=280, height=240, rowstart=20, rotation=90)
-    splash = displayio.Group()
-    display.show(splash)
-    return splash
+    return ST7789(display_bus, width=280, height=240, rowstart=20, rotation=90)
 
 if __name__ == "__main__":
-    line=1
-    if len(sys.argv) > 2: line=sys.argv[2]
-
-    splash=setupDisplay()
-    drawColor(0x0000FF, splash)
-    drawText(sys.argv[1], splash, 40, 30*line, 0xFFFF00)
+    display = setupDisplay()
+    splash = displayio.Group()
+    display.show(splash)
+    for i in range(1, len(sys.argv)):
+        drawColor(0x0000FF, splash)
+        drawText(sys.argv[i], splash, 40, 30*i, 0xFFFF00)
