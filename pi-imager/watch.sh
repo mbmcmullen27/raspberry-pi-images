@@ -19,7 +19,7 @@ while [ $FOUND == false ]; do
     for k in $(eval echo "{1..$it}"); do
         str+="."
     done
-    python write-lines.py str "                " 
+    python write-lines.py "$str" "                " 
     sleep 7
   fi
   let it++
