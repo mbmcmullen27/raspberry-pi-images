@@ -16,3 +16,5 @@ requires pip3 libraries
     - the latest version, 2.21.2, causes an 'undefined' error
 - adafruit-circuitpython-st7789
 - adafruit-blinka-displayio
+
+prepare packer build machine with following these [instrunction](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
