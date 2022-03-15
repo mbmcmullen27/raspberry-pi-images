@@ -12,6 +12,8 @@ img=$(fetch $url/ "raspios[^\"/]*")
 file=$(fetch $url/$img/ "[^\.]*.zip")
 
 echo "The latest image build is: $img"
-echo "Downloading $file"
 
-wget $url/$img/$file -P imgs/
+# wget $url/$img/$file -P imgs/
+image=$url/$img/$file
+jq ".builders[] | select(.type==\"arm\").file_urls[0]=\"$image\" | .file_checksum_url=\"${image}.sha256\"" \
+  packer-template.json > raspios.json
