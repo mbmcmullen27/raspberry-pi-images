@@ -15,5 +15,5 @@ echo "The latest image build is: $img"
 
 # wget $url/$img/$file -P imgs/
 image=$url/$img/$file
-jq ".builders[] | select(.type==\"arm\").file_urls[0]=\"$image\" | .file_checksum_url=\"${image}.sha256\"" \
+jq ".builders[0].file_urls[0]=\"$image\" | .builders[0].file_checksum_url=\"${image}.sha256\"" \
   packer-template.json > raspios.json
