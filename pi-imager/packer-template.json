@@ -1,5 +1,9 @@
 {
-  "variables": {},
+  "variables": {
+    "hostname":"raspberrypi",
+    "ssid-name": "",
+    "ssid-pass": ""
+  },
   "builders": [{
     "type": "arm",
     "file_urls" : ["https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-11-08/2021-10-30-raspios-bullseye-armhf-lite.zip"],
@@ -34,9 +38,27 @@
   }],
   "provisioners": [    
     {
+      "type": "file",
+      "source": "./wpa_supplicant.conf",
+      "destination": "/boot/wpa_supplicant.conf"
+    },
+    {
       "type": "shell",
       "inline": [
-        "touch /tmp/test"
+        "sed -i 's/raspberrypi/{{user `hostname`}}/' /etc/hostname",
+        "sed -i 's/raspberrypi/{{user `hostname`}}/' /etc/hosts",
+        "sed -i 's/SSID-NAME/{{user `ssid-name`}}/' /boot/wpa_supplicant.conf",
+        "sed -i 's/SSID-PASS/{{user `ssid-pass`}}/' /boot/wpa_supplicant.conf",
+        "apt update",
+        "apt upgrade -y",
+        "apt install -y apt-transport-https ca-certificates curl",
+        "export LANGUAGE=en_US.UTF-8",
+        "export LANG=en_US.UTF-8",
+        "export LC_ALL=en_US.UTF-8",
+        "curl -fsSL https://get.docker.com -o get-docker.sh",
+        "sh get-docker.sh",
+        "usermod -aG docker pi",
+        "systemctl disable dphys-swapfile.service"
       ]
     }
   ]
