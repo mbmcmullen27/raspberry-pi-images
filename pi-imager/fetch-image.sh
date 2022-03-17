@@ -11,6 +11,16 @@ function Fetch() {
 img=$(Fetch $url/ "raspios[^\"/]*")
 file=$(Fetch $url/$img/ "[^\.]*.zip")
 
+function Help() {
+  cat <<EOF
+  USAGE: ./<scriptname> [-bduv]
+    -b builds image from current template
+    -d download latest image as a zip
+    -u update template with latest image version
+    -v print latest available raspios image version
+EOF
+}
+
 function Build() {
   [ ! -d "./imgs" ] && mkdir "imgs"
   sudo -E TMPDIR=/var/tmp packer build raspios.json
@@ -52,9 +62,9 @@ while getopts ":hbdv" option; do
         exit;;
    esac
 done
+
 if [ "$#" -eq 0 ]; then
-  Update
-  Build
+  Update && Build
   exit 0;
 fi
 
