@@ -13,9 +13,9 @@
       "file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-01-28/2022-01-28-raspios-bullseye-armhf-lite.zip.sha256",
       "file_checksum_type": "sha256",
       "file_target_extension": "zip",
-      "image_build_method": "reuse",
+      "image_build_method": "resize",
       "image_path": "imgs/raspios-arm.img",
-      "image_size": "2G",
+      "image_size": "4G",
       "image_type": "dos",
       "image_partitions": [
         {
@@ -55,14 +55,14 @@
         "sed -i 's/raspberrypi/{{user `hostname`}}/' /etc/hosts",
         "sed -i 's/SSID-NAME/{{user `ssid-name`}}/' /boot/wpa_supplicant.conf",
         "sed -i 's/SSID-PASS/{{user `ssid-pass`}}/' /boot/wpa_supplicant.conf",
-        "apt update",
+        "export LANGUAGE=\"en_US.UTF-8\"",
+        "export LANG=\"en_US.UTF-8\"",
+        "export LC_ALL=\"en_US.UTF-8\"",
+        "apt-get update",
         "apt upgrade -y",
         "apt install -y apt-transport-https ca-certificates curl",
-        "export LANGUAGE=en_US.UTF-8",
-        "export LANG=en_US.UTF-8",
-        "export LC_ALL=en_US.UTF-8",
         "curl -fsSL https://get.docker.com -o get-docker.sh",
-        "sh get-docker.sh",
+        "LC_ALL=\"en_US.UTF-8\" sh get-docker.sh",
         "usermod -aG docker pi",
         "systemctl disable dphys-swapfile.service"
       ]
