@@ -9,7 +9,8 @@ imager requires packages
 - python3-pip
 - python-rpi.gpio (button)
 - python3-rpi.gpio (button)
-
+- parted (for packer)
+- packer
 
 imager requires pip3 libraries
 - adafruit-circuitpython-display-text==2.21.1
