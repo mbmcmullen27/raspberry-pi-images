@@ -21,10 +21,13 @@ imager requires pip3 libraries
 initialize packer build machine with following these [instrunction](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
 
 ```sh
-# fetch latest build
+# fetch latest raspios image (for testing purposes, not required)
 ./fetch-image.sh
 
 # running packer
-sudo -E TMPDIR=/var/tmp packer build raspios.json
-
+sudo -E TMPDIR=/var/tmp packer build \
+    -var "hostname=${PKR_HOSTNAME-'raspberrypi'}" \
+    -var "ssid-name=$PKR_SSID" \
+    -var "ssid-pass=$PKR_SSID_PASS" \
+    raspios.json
 ```
