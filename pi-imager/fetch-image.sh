@@ -2,10 +2,10 @@
 url="https://downloads.raspberrypi.org/raspios_lite_armhf/images"
 
 function Fetch() {
-    curl -s $1 |\
-        grep -Po "(?<=href=\")$2" |\
-        sort -nr |\
-        head -n1
+  curl -s $1 |\
+    grep -Po "(?<=href=\")$2" |\
+    sort -nr |\
+    head -n1
 } 
 
 img=$(Fetch $url/ "raspios[^\"/]*")
@@ -13,7 +13,14 @@ file=$(Fetch $url/$img/ "[^\.]*.zip")
 
 function Help() {
   cat <<EOF
-  USAGE: ./<scriptname> [-hbduv]
+  USAGE: 
+      ./<scriptname> [-hbduv]
+
+  DESCRIPTION:
+    Builds a custom raspiOs image using the latest release and a packer template (./packer-template.json)
+    Execute without any options to update the template and build an image.
+
+  OPTIONS:
     -b builds image from current template
     -d download latest image as a zip
     -u update template with latest image version
@@ -23,7 +30,11 @@ EOF
 
 function Build() {
   [ ! -d "./imgs" ] && mkdir "imgs"
-  sudo -E TMPDIR=/var/tmp packer build raspios.json
+  sudo -E TMPDIR=/var/tmp packer build \
+    -var "hostname=${PKR_HOSTNAME-'raspberrypi'}" \
+    -var "ssid-name=$PKR_SSID" \
+    -var "ssid-pass=$PKR_SSID_PASS" \
+    raspios.json
 }
 
 function Download() {
@@ -45,10 +56,10 @@ while getopts ":hbduv" option; do
       h) # display Help
         Help
         exit;;
-      b) # build only don't fetch
+      b) # build template 
         Build 
         exit;;
-      d) # download the latest image
+      d) # download latest image
         Download
         exit;;
       u) # update template

@@ -21,8 +21,8 @@ imager requires pip3 libraries
 initialize packer build machine with following these [instrunction](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
 
 ```sh
-# fetch latest raspios image (for testing purposes, not required)
-./fetch-image.sh
+# usage 
+./fetch-image.sh -h
 
 # running packer
 sudo -E TMPDIR=/var/tmp packer build \

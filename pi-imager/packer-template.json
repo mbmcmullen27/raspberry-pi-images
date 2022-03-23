@@ -12,7 +12,7 @@
     "file_target_extension": "zip",
     "image_build_method": "resize",
     "image_path": "imgs/raspios-arm.img",
-    "image_size": "4G",
+    "image_size": "3G",
     "image_type": "dos",
     "image_partitions": [
       {
@@ -52,9 +52,7 @@
 
         "touch /boot/ssh",
 
-        "export LANGUAGE=\"en_US.UTF-8\"",
-        "export LANG=\"en_US.UTF-8\"",
-        "export LC_ALL=\"en_US.UTF-8\"",      
+        "sudo raspi-config nonint do_change_locale en_US.UTF-8",
 
         "apt-get update",
         "apt upgrade -y",
