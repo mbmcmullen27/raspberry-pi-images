@@ -55,7 +55,7 @@
         "sed -i 's/raspberrypi/{{user `hostname`}}/' /etc/hosts",
         "sed -i 's/SSID-NAME/{{user `ssid-name`}}/' /boot/wpa_supplicant.conf",
         "sed -i 's/SSID-PASS/{{user `ssid-pass`}}/' /boot/wpa_supplicant.conf",
-	      "touch /boot/ssh",
+        "touch /boot/ssh",
         "export LANGUAGE=\"en_US.UTF-8\"",
         "export LANG=\"en_US.UTF-8\"",
         "export LC_ALL=\"en_US.UTF-8\"",

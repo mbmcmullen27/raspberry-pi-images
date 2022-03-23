@@ -13,7 +13,7 @@ file=$(Fetch $url/$img/ "[^\.]*.zip")
 
 function Help() {
   cat <<EOF
-  USAGE: ./<scriptname> [-bduv]
+  USAGE: ./<scriptname> [-hbduv]
     -b builds image from current template
     -d download latest image as a zip
     -u update template with latest image version
@@ -40,7 +40,7 @@ function Version() {
   echo "The latest image build is: $img"
 }
 
-while getopts ":hbdv" option; do
+while getopts ":hbduv" option; do
    case "${option}" in
       h) # display Help
         Help
