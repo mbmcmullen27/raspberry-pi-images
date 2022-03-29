@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: mkaczanowski/packer-builder-arm
-          path: ../
+          path: ./
           ref: master
 
       - name: Build packer-builder-arm
