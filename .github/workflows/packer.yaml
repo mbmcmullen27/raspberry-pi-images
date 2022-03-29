@@ -21,6 +21,7 @@ jobs:
 
       - name: Build packer-builder-arm
         run: |
+          pwd
           ls -la
           go version
           go mod download
