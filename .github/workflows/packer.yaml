@@ -46,9 +46,10 @@ jobs:
           ls -la
           pwd
           echo $PACKER_HOME_DIR
-          TAG="custom-$(./raspberry-spi/pi-imager/fetch-image.sh -v)"
-          git tag $TAG
-          git push origin $TAG
+          cd raspberry-spi
+          TAG="custom-$(./pi-imager/fetch-image.sh -v)"
+          git tag 
+          git push origin 
           tar -czvf custom-raspios-arm.tar.gz custom-raspios-arm.img
       
       - uses: actions/upload-artifact@v2
