@@ -18,7 +18,8 @@ jobs:
       - name: Checkout packer-builder-arm
         uses: actions/checkout@master
         with:
-          repository: mkaczanowski/packer-builder-arm@master
+          repository: mkaczanowski/packer-builder-arm
+          ref: master
 
       - name: Build packer-builder-arm
         run: |
