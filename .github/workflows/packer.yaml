@@ -11,8 +11,6 @@ jobs:
     name: packer
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
 
       - name: Checkout packer-builder-arm
         uses: actions/checkout@master
