@@ -14,6 +14,7 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@master
+        path: raspberry-spi
 
       - name: Checkout packer-builder-arm
         uses: actions/checkout@master
@@ -24,7 +25,6 @@ jobs:
       - name: Build packer-builder-arm
         run: |
           ls -la
-          cd packer-builder-arm
           go version
           go mod download
           go build
@@ -34,7 +34,7 @@ jobs:
         uses: hashicorp/packer-github-actions@master
         with:
           command: fix
-          target: pi-imager/raspios.json
+          target: raspberry-spi/pi-imager/raspios.json
 
       # validate templates
       - name: Validate Template
@@ -42,7 +42,7 @@ jobs:
         with:
           command: validate
           arguments: -syntax-only
-          target: pi-imager/raspios.json
+          target: raspberry-spi/pi-imager/raspios.json
 
       # build artifact
       - name: Build Artifact
@@ -50,7 +50,7 @@ jobs:
         with:
           command: build
           arguments: "-color=false -on-error=abort"
-          target: pi-imager/raspios.json 
+          target: raspberry-spi/pi-imager/raspios.json 
         env:
           PACKER_LOG: 1
 
