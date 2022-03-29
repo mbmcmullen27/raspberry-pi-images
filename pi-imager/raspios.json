@@ -14,7 +14,7 @@
       "file_checksum_type": "sha256",
       "file_target_extension": "zip",
       "image_build_method": "resize",
-      "image_path": "imgs/raspios-arm.img",
+      "image_path": "custom-raspios-arm.img",
       "image_size": "3G",
       "image_type": "dos",
       "image_partitions": [
