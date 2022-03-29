@@ -10,10 +10,10 @@ while [ $FOUND == false ]; do
   if [ -n "$disk" ]; then
     FOUND=true
     python write-lines.py "sd card detected" "writing image..."  
-    mount /dev/$disk $DIR
+    # mount /dev/$disk $DIR
     file=$(ls -1r imgs/ | head -n1)
     sudo dd if=imgs/$file of=/dev/$disk bs=4M conv=fsync
-    umount /dev/$disk
+    # umount /dev/$disk
   else
     str="sleeping"
     blankln='                    '
