@@ -31,6 +31,7 @@ jobs:
         with:
           path: raspberry-spi
 
+      - run: ls -la
       # fix backwards incompatibilities in template
       - name: Fix Template
         uses: hashicorp/packer-github-actions@master
