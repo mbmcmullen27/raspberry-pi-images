@@ -12,10 +12,6 @@ jobs:
 
     steps:
 
-      - name: Checkout Repository
-        uses: actions/checkout@master
-        with:
-          path: raspberry-spi
 
       - name: Checkout packer-builder-arm
         uses: actions/checkout@master
@@ -29,6 +25,11 @@ jobs:
           go version
           go mod download
           go build
+
+      - name: Checkout Repository
+        uses: actions/checkout@master
+        with:
+          path: raspberry-spi
 
       # fix backwards incompatibilities in template
       - name: Fix Template
