@@ -12,20 +12,23 @@ jobs:
 
     steps:
 
+      - run: pwd
 
-      - name: Checkout packer-builder-arm
-        uses: actions/checkout@master
-        with:
-          repository: mkaczanowski/packer-builder-arm
-          ref: master
+      # - name: Checkout packer-builder-arm
+      #   uses: actions/checkout@master
+      #   with:
+      #     repository: mkaczanowski/packer-builder-arm
+      #     ref: master
+
+      - run: pwd
 
       - name: Build packer-builder-arm
         run: |
           pwd
           ls -la
-          go version
-          go mod download
-          go build
+          # go version
+          # go mod download
+          # go build
 
       - name: Checkout Repository
         uses: actions/checkout@master
