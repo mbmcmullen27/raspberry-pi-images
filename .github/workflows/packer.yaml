@@ -14,11 +14,11 @@ jobs:
 
       - run: pwd
 
-      # - name: Checkout packer-builder-arm
-      #   uses: actions/checkout@master
-      #   with:
-      #     repository: mkaczanowski/packer-builder-arm
-      #     ref: master
+      - name: Checkout packer-builder-arm
+        uses: actions/checkout@master
+        with:
+          repository: mkaczanowski/packer-builder-arm
+          ref: master
 
       - run: pwd
 
@@ -26,9 +26,9 @@ jobs:
         run: |
           pwd
           ls -la
-          # go version
-          # go mod download
-          # go build
+          go version
+          go mod download
+          go build
 
       - name: Checkout Repository
         uses: actions/checkout@master
@@ -38,6 +38,7 @@ jobs:
       - run: |
           ls -la
           pwd
+          echo $PACKER_HOME_DIR
 
       # build artifact
       - name: Build Artifact
