@@ -47,6 +47,7 @@ jobs:
           pwd
           echo $PACKER_HOME_DIR
           ./raspberry-spi/pi-imager/fetch-image.sh -v
+          chown runner:docker custom-raspios-arm.img
           tar -cvfz custom-raspios-arm.tar.gz custom-raspios-arm.img
       
       - uses: actions/upload-artifact@v2
