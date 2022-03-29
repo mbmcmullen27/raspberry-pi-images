@@ -33,8 +33,8 @@ jobs:
           path: raspberry-spi
 
       - run: |
-        ls -la
-        pwd
+          ls -la
+          pwd
 
       # build artifact
       - name: Build Artifact
