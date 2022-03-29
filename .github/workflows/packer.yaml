@@ -14,7 +14,8 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@master
-        path: raspberry-spi
+        with:
+          path: raspberry-spi
 
       - name: Checkout packer-builder-arm
         uses: actions/checkout@master
