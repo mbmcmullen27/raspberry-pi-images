@@ -46,3 +46,18 @@ jobs:
           ls -la
           pwd
           echo $PACKER_HOME_DIR
+          ./fetch-image.sh -v
+          tar -cvfz custom-raspios-arm.tar.gz custom-raspios-arm.img
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: image
+          path: custom-raspios-arm.tar.gz
+
+      - run: echo "custom raspios image" >> release.md
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "custom-raspios-arm.tar.gz"
+          bodyFile: "release.md"
+          token: ${{ secrets.GITHUB_TOKEN }}

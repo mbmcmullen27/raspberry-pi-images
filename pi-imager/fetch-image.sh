@@ -48,7 +48,7 @@ function Update() {
 }
 
 function Version() {
-  echo "The latest image build is: $img"
+  echo "$img"
 }
 
 while getopts ":hbduv" option; do
