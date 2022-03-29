@@ -17,7 +17,7 @@ jobs:
       - name: Checkout packer-builder-arm
         uses: actions/checkout@master
         with:
-          name: mkaczanowski/packer-builder-arm@master
+          name: mkaczanowski/packer-builder-arm
 
       - name: Build packer-builder-arm
         run: |
