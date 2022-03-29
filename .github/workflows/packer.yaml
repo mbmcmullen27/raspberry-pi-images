@@ -23,30 +23,18 @@ jobs:
         run: |
           pwd
           ls -la
-          go version
-          go mod download
-          go build
+          # go version
+          # go mod download
+          # go build
 
       - name: Checkout Repository
         uses: actions/checkout@master
         with:
           path: raspberry-spi
 
-      - run: ls -la
-      # fix backwards incompatibilities in template
-      - name: Fix Template
-        uses: hashicorp/packer-github-actions@master
-        with:
-          command: fix
-          target: raspberry-spi/pi-imager/raspios.json
-
-      # validate templates
-      - name: Validate Template
-        uses: hashicorp/packer-github-actions@master
-        with:
-          command: validate
-          arguments: -syntax-only
-          target: raspberry-spi/pi-imager/raspios.json
+      - run: |
+        ls -la
+        pwd
 
       # build artifact
       - name: Build Artifact
