@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: mkaczanowski/packer-builder-arm
-          path: /home/pi
+          path: $GITHUB_ACTION_PATH
           ref: master
 
       - name: Build packer-builder-arm
