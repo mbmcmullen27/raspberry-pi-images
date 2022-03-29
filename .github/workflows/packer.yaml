@@ -29,14 +29,13 @@ jobs:
           go version
           go mod download
           go build
-          cd ..
 
       # fix backwards incompatibilities in template
       - name: Fix Template
         uses: hashicorp/packer-github-actions@master
         with:
           command: fix
-          target: pi-imager/raspios.json
+          target: ../pi-imager/raspios.json
 
       # validate templates
       - name: Validate Template
