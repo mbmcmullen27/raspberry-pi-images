@@ -12,19 +12,15 @@ jobs:
 
     steps:
 
-      - run: mkdir ../packer-builder-arm
-
       - name: Checkout packer-builder-arm
         uses: actions/checkout@master
         with:
           repository: mkaczanowski/packer-builder-arm
-          path: ../
+          path: packer-builder-arm
           ref: master
 
       - name: Build packer-builder-arm
         run: |
-          ls -la
-          cd ..
           ls -la
           go version
           go mod download
