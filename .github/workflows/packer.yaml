@@ -50,12 +50,11 @@ jobs:
           TAG="custom-$(./pi-imager/fetch-image.sh -v)"
           git tag $TAG 
           git push origin $TAG
-          cd ..
-          tar -czvf custom-raspios-arm.tar.gz custom-raspios-arm.img
+          tar -czvf custom-raspios-arm.tar.gz ../custom-raspios-arm.img
       
       - uses: actions/upload-artifact@v2
         with:
-          name: image
+          name: ${TAG}
           path: custom-raspios-arm.tar.gz
 
       - run: echo "custom raspios image" >> release.md
