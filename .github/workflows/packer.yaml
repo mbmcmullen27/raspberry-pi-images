@@ -26,6 +26,7 @@ jobs:
           go version
           go mod download
           go build
+          cd ..
 
       # fix backwards incompatibilities in template
       - name: Fix Template
