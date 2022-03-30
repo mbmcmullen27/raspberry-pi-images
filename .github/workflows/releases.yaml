@@ -3,7 +3,7 @@ name: releases
 on: 
   push:
     tags:
-    - '*'
+      - '**'
 
 jobs:
   packer:
