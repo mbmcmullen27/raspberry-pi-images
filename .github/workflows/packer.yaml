@@ -41,24 +41,27 @@ jobs:
           
       - run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspberry-spi/pi-imager/raspios.json
 
+
+      - run: ls -la ${{ github.workspace }}/raspberry-spi
+
+      - run: |
+          ls -la
+          pwd
+          tar -czvf raspberry-spi/custom-raspios-arm.tar.gz custom-raspios-arm.img
+          pwd
+          ls -la
+
       - uses: actions/upload-artifact@v3
         with:
           name: os-image
           path: ${{ github.workspace }}/raspberry-spi/custom-raspios-arm.tar.gz
 
-      - id: tag
+      - id: tag 
         run: |
-          ls -la
-          pwd
-          echo $PACKER_HOME_DIR
-          mv custom-raspios-arm.img raspberry-spi/
-          cd raspberry-spi
+          cd ${{ github.workspace }}/raspberry-spi
           TAG="custom-$(./pi-imager/fetch-image.sh -v)"
           git tag $TAG 
           git push origin $TAG
-          tar -czvf custom-raspios-arm.tar.gz custom-raspios-arm.img
-          pwd
-          ls -la
           echo ::set-output name=TAG::${TAG}
 
       - run: echo "${{ steps.tag.outputs.TAG }}"
