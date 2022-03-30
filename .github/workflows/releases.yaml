@@ -1,0 +1,21 @@
+name: releases
+
+on: 
+  push:
+    tags:
+    - '*'
+
+jobs:
+  packer:
+    runs-on: ubuntu-latest
+    name: releases
+
+    steps:
+
+    - run: echo "custom raspios image" >> release.md
+
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: os-image 
+        bodyFile: "release.md"
+        token: ${{ secrets.GITHUB_TOKEN }}

@@ -58,16 +58,16 @@ jobs:
 
       - run: echo "${{ steps.tag.outputs.TAG }}"
       
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.tag.outputs.TAG }}
+          name: os-image
           path: custom-raspios-arm.tar.gz
 
-      - run: echo "custom raspios image" >> release.md
+      # - run: echo "custom raspios image" >> release.md
 
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: ${{ steps.tag.outputs.TAG }}
-          tag: ${{ steps.tag.outputs.TAG }}
-          bodyFile: "release.md"
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: ${{ steps.tag.outputs.TAG }}
+      #     tag: ${{ steps.tag.outputs.TAG }}
+      #     bodyFile: "release.md"
+      #     token: ${{ secrets.GITHUB_TOKEN }}
