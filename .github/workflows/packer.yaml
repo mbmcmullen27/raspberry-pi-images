@@ -66,11 +66,11 @@ jobs:
 
       - run: echo "${{ steps.tag.outputs.TAG }}"
 
-      # - run: echo "custom raspios image" >> release.md
+      - run: echo "custom raspios image" >> release.md
 
-      # - uses: ncipollo/release-action@v1
-      #   with:
-      #     artifacts: ${{ steps.tag.outputs.TAG }}
-      #     tag: ${{ steps.tag.outputs.TAG }}
-      #     bodyFile: "release.md"
-      #     token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: os-image
+          tag: ${{ steps.tag.outputs.TAG }}
+          bodyFile: "release.md"
+          token: ${{ secrets.GITHUB_TOKEN }}
