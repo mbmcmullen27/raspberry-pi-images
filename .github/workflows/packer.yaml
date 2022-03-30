@@ -54,7 +54,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: ${TAG}
-          path: custom-raspios-arm.tar.gz
+          path: ../custom-raspios-arm.tar.gz
 
       - run: echo "custom raspios image" >> release.md
 
