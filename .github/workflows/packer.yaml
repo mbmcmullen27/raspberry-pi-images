@@ -59,18 +59,23 @@ jobs:
           git push origin $TAG
           echo ::set-output name=TAG::${TAG}
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: os-image
-          path: ${{ github.workspace }}/raspberry-spi/custom-raspios-arm.tar.gz
-
       - run: echo "${{ steps.tag.outputs.TAG }}"
 
       - run: echo "custom raspios image" >> release.md
 
       - uses: ncipollo/release-action@v1
+        id: create_release
         with:
-          artifacts: os-image
           tag: ${{ steps.tag.outputs.TAG }}
           bodyFile: "release.md"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: add image to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/raspberry-spi/custom-raspios-arm.tar.gz
+          asset_name: custom-raspios-arm.tar.gz
+          asset_content_type: application/gzip
