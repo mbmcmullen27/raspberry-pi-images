@@ -54,7 +54,7 @@ jobs:
           tar -czvf custom-raspios-arm.tar.gz custom-raspios-arm.img
           pwd
           ls -la
-          echo "::set-output name=TAG::${TAG}"
+          echo ::set-output name=TAG::${TAG}
 
       - run: echo "${{ steps.tag.output.TAG }}"
       
