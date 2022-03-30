@@ -59,9 +59,7 @@ jobs:
           git push origin $TAG
           echo ::set-output name=TAG::${TAG}
 
-      - run: echo "${{ steps.tag.outputs.TAG }}"
-
-      - run: echo "custom raspios image" >> release.md
+      - run: echo "${{ steps.tag.outputs.TAG }}" >> release.md
 
       - uses: ncipollo/release-action@v1
         id: create_release
