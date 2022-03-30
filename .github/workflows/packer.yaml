@@ -56,18 +56,18 @@ jobs:
           ls -la
           echo ::set-output name=TAG::${TAG}
 
-      - run: echo "${{ steps.tag.output.TAG }}"
+      - run: echo "${{ steps.tag.outputs.TAG }}"
       
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.tag.output.TAG }}
+          name: ${{ steps.tag.outputs.TAG }}
           path: custom-raspios-arm.tar.gz
 
       - run: echo "custom raspios image" >> release.md
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{ steps.tag.output.TAG }}
-          tag: ${{ steps.tag.output.TAG }}
+          artifacts: ${{ steps.tag.outputs.TAG }}
+          tag: ${{ steps.tag.outputs.TAG }}
           bodyFile: "release.md"
           token: ${{ secrets.GITHUB_TOKEN }}
