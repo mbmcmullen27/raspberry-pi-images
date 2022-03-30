@@ -71,5 +71,6 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: os-image
+          tag: ${{ steps.tag.outputs.TAG }}
           bodyFile: "release.md"
           token: ${{ secrets.GITHUB_TOKEN }}
