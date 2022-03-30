@@ -41,6 +41,11 @@ jobs:
           
       - run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspberry-spi/pi-imager/raspios.json
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: os-image
+          path: ${{ github.workspace }}/raspberry-spi/custom-raspios-arm.tar.gz
+
       - id: tag
         run: |
           ls -la
@@ -57,11 +62,7 @@ jobs:
           echo ::set-output name=TAG::${TAG}
 
       - run: echo "${{ steps.tag.outputs.TAG }}"
-      
-      - uses: actions/upload-artifact@v3
-        with:
-          name: os-image
-          path: custom-raspios-arm.tar.gz
+      - run: echo "${{ github.workspace }}"
 
       # - run: echo "custom raspios image" >> release.md
 
