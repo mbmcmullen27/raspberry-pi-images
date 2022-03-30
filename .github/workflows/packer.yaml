@@ -51,11 +51,6 @@ jobs:
           pwd
           ls -la
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: os-image
-          path: ${{ github.workspace }}/raspberry-spi/custom-raspios-arm.tar.gz
-
       - id: tag 
         run: |
           cd ${{ github.workspace }}/raspberry-spi
@@ -63,6 +58,11 @@ jobs:
           git tag $TAG 
           git push origin $TAG
           echo ::set-output name=TAG::${TAG}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: os-image
+          path: ${{ github.workspace }}/raspberry-spi/custom-raspios-arm.tar.gz
 
       - run: echo "${{ steps.tag.outputs.TAG }}"
 
