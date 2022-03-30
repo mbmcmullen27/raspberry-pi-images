@@ -60,6 +60,6 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "custom-raspios-arm.tar.gz"
+          artifacts: ${TAG}
           bodyFile: "release.md"
           token: ${{ secrets.GITHUB_TOKEN }}
