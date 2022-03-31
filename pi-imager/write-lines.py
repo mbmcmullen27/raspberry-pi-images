@@ -35,6 +35,9 @@ if __name__ == "__main__":
     display = setupDisplay()
     splash = displayio.Group()
     display.show(splash)
+    drawColor(0x0000FF, splash)
     for i in range(1, len(sys.argv)):
-        drawColor(0x0000FF, splash)
         drawText(sys.argv[i], splash, 40, 30*i, 0xFFFF00)
+
+    while True: pass
+    
