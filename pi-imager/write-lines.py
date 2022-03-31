@@ -1,4 +1,5 @@
 import sys
+import time
 import board
 import terminalio
 import displayio
@@ -39,5 +40,5 @@ if __name__ == "__main__":
     for i in range(1, len(sys.argv)):
         drawText(sys.argv[i], splash, 40, 30*i, 0xFFFF00)
 
-    while True: pass
+    time.sleep(1)
     
