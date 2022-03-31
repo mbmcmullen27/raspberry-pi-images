@@ -24,10 +24,10 @@ def setupDisplay():
 
     spi = board.SPI()
     tft_cs = board.CE0
-    tft_dc = board.D15
+    tft_dc = board.D6
 
     display_bus = displayio.FourWire(
-        spi, command=tft_dc, chip_select=tft_cs, reset=board.D14
+        spi, command=tft_dc, chip_select=tft_cs, reset=board.D5
     )
     return ST7789(display_bus, width=280, height=240, rowstart=20, rotation=90)
 
