@@ -2,17 +2,18 @@
 
 name: RaspiOs ++
 
-on: workflow_dispatch
-  inputs:
-    imageType:
-      description: 'Type of image to create'     
-      required: true
-      default: 'docker-host' 
-      type: choice
-      options:
-      - docker-host
-      - ssh-enabled
-      - kube-worker
+on: 
+  workflow_dispatch:
+    inputs:
+      imageType:
+        description: 'Type of image to create'     
+        required: true
+        default: 'docker-host' 
+        type: choice
+        options:
+        - docker-host
+        - ssh-enabled
+        - kube-worker
 
 jobs:
   packer:
