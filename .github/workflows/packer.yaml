@@ -14,13 +14,15 @@ jobs:
         uses: actions/checkout@master
 
       - run: |
-          [[ -f ${{github.workspace }}/raspberry-spi  ]] && cd raspberry-spi
           ls -la
           pwd
           
-      - run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspberry-spi/pi-imager/raspios.json
-
-      - run: ls -la ${{ github.workspace }}/raspberry-spi
+      - run: |
+        docker run --rm --privileged \
+          -v /dev:/dev \ 
+          -v ${PWD}:/build \
+        mkaczanowski/packer-builder-arm \
+        build pi-imager/raspios.json
 
       - run: |
           ls -la
