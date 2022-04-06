@@ -1,0 +1,69 @@
+{
+  "variables": {
+    "hostname": "raspberrypi",
+    "ssid-name": "",
+    "ssid-pass": ""
+  },
+  "builders": [
+    {
+      "type": "arm",
+      "file_urls": [
+        "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-01-28/2022-01-28-raspios-bullseye-armhf-lite.zip"
+      ],
+      "file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-01-28/2022-01-28-raspios-bullseye-armhf-lite.zip.sha256",
+      "file_checksum_type": "sha256",
+      "file_target_extension": "zip",
+      "image_build_method": "resize",
+      "image_path": "custom-raspios-arm.img",
+      "image_size": "3G",
+      "image_type": "dos",
+      "image_partitions": [
+        {
+          "name": "boot",
+          "type": "c",
+          "start_sector": "8192",
+          "filesystem": "vfat",
+          "size": "256M",
+          "mountpoint": "/boot"
+        },
+        {
+          "name": "root",
+          "type": "83",
+          "start_sector": "532480",
+          "filesystem": "ext4",
+          "size": "0",
+          "mountpoint": "/"
+        }
+      ],
+      "image_chroot_env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+      ],
+      "qemu_binary_source_path": "/usr/bin/qemu-arm-static",
+      "qemu_binary_destination_path": "/usr/bin/qemu-arm-static"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "raspberry-spi/pi-imager/wpa_supplicant.conf",
+      "destination": "/boot/wpa_supplicant.conf"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sed -i 's/raspberrypi/{{user `hostname`}}/' /etc/hostname",
+        "sed -i 's/raspberrypi/{{user `hostname`}}/' /etc/hosts",
+        "sed -i 's/SSID-NAME/{{user `ssid-name`}}/' /boot/wpa_supplicant.conf",
+        "sed -i 's/SSID-PASS/{{user `ssid-pass`}}/' /boot/wpa_supplicant.conf",
+        "touch /boot/ssh",
+        "sudo raspi-config nonint do_change_locale en_US.UTF-8",
+        "apt-get update",
+        "apt upgrade -y",
+        "apt install -y apt-transport-https ca-certificates curl",
+        "curl -fsSL https://get.docker.com -o get-docker.sh",
+        "LC_ALL=\"en_US.UTF-8\" sh get-docker.sh",
+        "usermod -aG docker pi"
+      ]
+    }
+  ]
+}

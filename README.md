@@ -24,13 +24,15 @@ imager requires pip3 libraries
 ## running from docker (this is how this repo produces releases)
 - detailed instructions found in the [packer-builder-arm repo](https://github.com/mkaczanowski/packer-builder-arm) 
 - use fetch-image.sh script to update the packer template with the latest raspios release
--
 
 ```sh
 # usage 
 ./fetch-image.sh -h
 
-# running packer
+# running packer-arm-builder in docker
+docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspberry-spi/pi-imager/raspios.json
+
+# running packer locally
 sudo -E TMPDIR=/var/tmp packer build \
     -var "hostname=${PKR_HOSTNAME-'raspberrypi'}" \
     -var "ssid-name=$PKR_SSID" \

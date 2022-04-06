@@ -17,19 +17,23 @@ function Help() {
       ./<scriptname> [-hbduv]
 
   DESCRIPTION:
-    Builds a custom raspiOs image using the latest release and a packer template (./packer-template.json)
+    Builds a custom raspiOs image using the latest release and a packer template 
     Execute without any options to update the template and build an image.
 
   OPTIONS:
-    -b builds image from current template
+    -b builds image from specified template defaults to templates/ssh-enabled.json
     -d download latest image as a zip
-    -u update template with latest image version
+    -u takes optional path of template to update defaults to updating templates/*.json
     -v print latest available raspios image version
 EOF
 }
 
 function Build() {
-  [ ! -d "./imgs" ] && mkdir "imgs"
+  if [[ ! -z $1 ]]; 
+  then cp $1 raspios.json
+  else cp templates/ssh-enabled.json raspios.json
+  fi
+  
   sudo -E TMPDIR=/var/tmp packer build \
     -var "hostname=${PKR_HOSTNAME-'raspberrypi'}" \
     -var "ssid-name=$PKR_SSID" \
@@ -42,28 +46,51 @@ function Download() {
 }
 
 function Update() {
+  if [[ ! -z $1 ]]; then 
+    UpdateTemplate $1
+  else
+    for f in templates/*.json; do
+      UpdateTemplate $f
+    done
+  fi
+}
+
+function UpdateTemplate() {
   image=$url/$img/$file
   jq ".builders[0].file_urls[0]=\"$image\" | .builders[0].file_checksum_url=\"${image}.sha256\"" \
-    packer-template.json > raspios.json
+    $1 | sponge $1
+
 }
 
 function Version() {
   echo "$img"
 }
 
-while getopts ":hbduv" option; do
+optional_argument() {
+  eval next_token=\${$OPTIND}
+  if [[ -n $next_token && $next_token != -* ]]; then
+    OPTIND=$((OPTIND + 1))
+    OPTARG=$next_token
+  else
+    OPTARG=""
+  fi
+}
+
+while getopts "hbdv:ub" option; do
    case "${option}" in
       h) # display Help
         Help
         exit;;
       b) # build template 
-        Build 
+        optional_argument $@
+        Build $OPTARG 
         exit;;
       d) # download latest image
         Download
         exit;;
       u) # update template
-        Update
+        optional_argument $@
+        Update $OPTARG
         exit;;
       v) # print current version
         Version
@@ -78,6 +105,3 @@ if [ "$#" -eq 0 ]; then
   Update && Build
   exit 0;
 fi
-
-
-
