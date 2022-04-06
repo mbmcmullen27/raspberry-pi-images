@@ -12,18 +12,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
-
       - run: |
           ls -la
-          pwd
-          
-      - run: |
-        docker run --rm --privileged \
-          -v /dev:/dev \ 
-          -v ${PWD}:/build \
-        mkaczanowski/packer-builder-arm \
-        build pi-imager/raspios.json
-
+          pwd          
+      - run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build pi-imager/raspios.json
       - run: |
           ls -la
           pwd
