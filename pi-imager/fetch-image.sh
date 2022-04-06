@@ -56,10 +56,16 @@ function Update() {
 }
 
 function UpdateTemplate() {
+  if [[ ! -f "$1" ]];
+    then echo "No such template: $1" >&2
+    exit 1
+  fi 
+
   image=$url/$img/$file
   jq ".builders[0].file_urls[0]=\"$image\" | .builders[0].file_checksum_url=\"${image}.sha256\"" \
     $1 | sponge $1
 
+  echo "Updated $1"
 }
 
 function Version() {
