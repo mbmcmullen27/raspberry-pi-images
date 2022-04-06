@@ -10,7 +10,8 @@ jobs:
     name: Packer Build  
 
     steps:
-      - run: type sponge
+      - name: install moreutils
+        run: sudo apt-get update -y && sudo apt-get install -y moreutils
 
       - name: Checkout Repository
         uses: actions/checkout@master  
