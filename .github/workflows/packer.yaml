@@ -1,8 +1,18 @@
 ---
 
-name: RaspiOs + Docker
+name: RaspiOs ++
 
 on: workflow_dispatch
+  inputs:
+    imageType:
+      description: 'Type of image to create'     
+      required: true
+      default: 'docker-host' 
+      type: choice
+      options:
+      - docker-host
+      - ssh-enabled
+      - kube-worker
 
 jobs:
   packer:
@@ -10,16 +20,18 @@ jobs:
     name: Packer Build  
 
     steps:
-      - name: install moreutils
+      - name: Install moreutils
         run: sudo apt-get update -y && sudo apt-get install -y moreutils
 
       - name: Checkout Repository
         uses: actions/checkout@master  
 
       - name: Packer Build
+        env:
+          TEMPLATE: ${{ github.event.inputs.imageType }}
         run: |
           cd pi-imager
-          ./fetch-image.sh -u templates/docker-host.json
+          ./fetch-image.sh -u templates/${TEMPLATE}.json
           docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspios.json
           cd ..
       
