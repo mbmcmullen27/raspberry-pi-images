@@ -18,7 +18,13 @@ imager requires pip3 libraries
 - adafruit-circuitpython-st7789
 - adafruit-blinka-displayio
 
-initialize packer build machine with following these [instrunction](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
+## Running locally with Packer
+- initialize packer build machine with following these [instrunction](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
+
+## running from docker (this is how this repo produces releases)
+- detailed instructions found in the [packer-builder-arm repo](https://github.com/mkaczanowski/packer-builder-arm) 
+- use fetch-image.sh script to update the packer template with the latest raspios release
+-
 
 ```sh
 # usage 

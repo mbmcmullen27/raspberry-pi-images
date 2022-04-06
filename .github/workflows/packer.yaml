@@ -10,24 +10,7 @@ jobs:
     name: packer
 
     steps:
-
       - run: pwd
-
-      - name: Checkout packer-builder-arm
-        uses: actions/checkout@master
-        with:
-          repository: mkaczanowski/packer-builder-arm
-          ref: master
-
-      - run: pwd
-
-      - name: Build packer-builder-arm
-        run: |
-          pwd
-          ls -la
-          go version
-          go mod download
-          go build
 
       - name: Checkout Repository
         uses: actions/checkout@master
@@ -39,7 +22,6 @@ jobs:
           pwd
           
       - run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspberry-spi/pi-imager/raspios.json
-
 
       - run: ls -la ${{ github.workspace }}/raspberry-spi
 
