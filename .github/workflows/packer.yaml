@@ -1,6 +1,6 @@
 ---
 
-name: Packer
+name: RaspiOs + Docker
 
 on: workflow_dispatch
 
