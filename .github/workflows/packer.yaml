@@ -32,8 +32,7 @@ jobs:
           TEMPLATE: ${{ github.event.inputs.imageType }}
         run: |
           cd pi-imager
-          ./fetch-image.sh -u templates/${TEMPLATE}.json
-          docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspios.json
+          ./fetch-image.sh -b templates/${TEMPLATE}.json
           cd ..
       
       - name: Compress Image
