@@ -1,4 +1,6 @@
 #!/bin/bash
+[ -z $LOCAL_BUILD ] && LOCAL_BUILD=false || LOCAL_BUILD=true
+
 url="https://downloads.raspberrypi.org/raspios_lite_armhf/images"
 
 function Fetch() {
@@ -21,24 +23,28 @@ function Help() {
     Execute without any options to update the template and build an image.
 
   OPTIONS:
-    -b builds image from specified template defaults to templates/ssh-enabled.json
+    -b builds image from specified template, defaults to templates/ssh-enabled.json
     -d download latest image as a zip
-    -u takes optional path of template to update defaults to updating templates/*.json
+    -u takes optional path of template to update, defaults to templates/*.json
     -v print latest available raspios image version
 EOF
 }
 
 function Build() {
-  if [[ ! -z $1 ]]; 
+  if [[ -f $1 ]]; 
   then cp $1 raspios.json
   else cp templates/ssh-enabled.json raspios.json
   fi
-  
-  sudo -E TMPDIR=/var/tmp packer build \
-    -var "hostname=${PKR_HOSTNAME-'raspberrypi'}" \
-    -var "ssid-name=$PKR_SSID" \
-    -var "ssid-pass=$PKR_SSID_PASS" \
-    raspios.json
+
+  if [ $LOCAL_BUILD != true ]; then
+     docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspios.json
+  else 
+    sudo -E TMPDIR=/var/tmp packer build \
+      -var "hostname=${PKR_HOSTNAME-'raspberrypi'}" \
+      -var "ssid-name=$PKR_SSID" \
+      -var "ssid-pass=$PKR_SSID_PASS" \
+      raspios.json
+  fi
 }
 
 function Download() {
