@@ -10,14 +10,20 @@ jobs:
     name: Packer Build  
 
     steps:
+      - run: type sponge
+
       - name: Checkout Repository
         uses: actions/checkout@master  
 
       - name: Packer Build
-        run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build pi-imager/raspios.json
+        run: |
+          cd pi-imager
+          ./fetch-image.sh -u templates/docker-host.json
+          docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspios.json
+          cd ..
       
       - name: Compress Image
-        run: tar -czvf custom-raspios-arm.tar.gz custom-raspios-arm.img
+        run: tar -czvf custom-raspios-arm.tar.gz pi-imager/custom-raspios-arm.img
 
       - name: Create Release Tag
         id: tag 
