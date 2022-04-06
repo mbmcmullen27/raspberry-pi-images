@@ -11,41 +11,39 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@master
-      - run: |
-          ls -la
-          pwd          
-      - run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build pi-imager/raspios.json
-      - run: |
-          ls -la
-          pwd
-          tar -czvf raspberry-spi/custom-raspios-arm.tar.gz custom-raspios-arm.img
-          pwd
-          ls -la
+        uses: actions/checkout@master  
 
-      - id: tag 
+      - name: Packer Build
+        run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build pi-imager/raspios.json
+      
+      - name: Compress Image
+        run: tar -czvf custom-raspios-arm.tar.gz custom-raspios-arm.img
+
+      - name: Create Release Tag
+        id: tag 
         run: |
-          cd ${{ github.workspace }}/raspberry-spi
           TAG="custom-$(./pi-imager/fetch-image.sh -v)"
           git tag $TAG 
           git push origin $TAG
           echo ::set-output name=TAG::${TAG}
 
-      - run: echo "${{ steps.tag.outputs.TAG }}" >> release.md
+      - name: Update Release Notes
+        run: echo "${{ steps.tag.outputs.TAG }}" >> release.md
 
-      - uses: ncipollo/release-action@v1
+      - name: Create Release
+        uses: ncipollo/release-action@v1
         id: create_release
         with:
           tag: ${{ steps.tag.outputs.TAG }}
           bodyFile: "release.md"
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: add image to release
+      - name: Attach Image to Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/raspberry-spi/custom-raspios-arm.tar.gz
+          asset_path: ${{ github.workspace }}/custom-raspios-arm.tar.gz
           asset_name: custom-raspios-arm.tar.gz
           asset_content_type: application/gzip
