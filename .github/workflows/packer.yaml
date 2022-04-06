@@ -10,14 +10,11 @@ jobs:
     name: packer
 
     steps:
-      - run: pwd
-
       - name: Checkout Repository
         uses: actions/checkout@master
-        with:
-          path: raspberry-spi
 
       - run: |
+          [[ -f ${{github.workspace }}/raspberry-spi  ]] && cd raspberry-spi
           ls -la
           pwd
           
