@@ -3,7 +3,7 @@ on:
   workflow_call:
 jobs:
   release:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
