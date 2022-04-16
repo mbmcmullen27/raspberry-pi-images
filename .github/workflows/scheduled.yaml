@@ -43,5 +43,8 @@ jobs:
 
   release:
     needs: [ssh, docker, kube]
+    runs-on: ubuntu-latest
     steps:
       - run: echo "upload packages"
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
