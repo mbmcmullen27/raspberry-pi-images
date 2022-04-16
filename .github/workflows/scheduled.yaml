@@ -30,9 +30,9 @@ jobs:
   docker:
     needs: check-release
     if: ${{ needs.check-release.new-version }} == "true"
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "docker build job placeholder"
+    uses: ./.github/workflows/packer.yaml
+    with:
+      imageType: docker-host
   
   kube:
     needs: check-release
@@ -42,10 +42,7 @@ jobs:
       - run: echo "kubernetes build job placeholder"
 
   release:
-    needs: [ssh, docker, kube]
     runs-on: ubuntu-latest
-    steps:
-      - run: echo "upload packages"
-      - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v2
-      - run: ls -la
+    if: ${{ needs.check-release.new-version }} == "true" 
+    needs: [ssh, docker, kube]
+    uses: ./.github/workflows/release.yaml
