@@ -88,7 +88,7 @@ optional_argument() {
   fi
 }
 
-while getopts "hbdv:ub" option; do
+while getopts "hbdvub" option; do
    case "${option}" in
       h) # display Help
         Help
