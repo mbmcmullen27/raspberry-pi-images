@@ -20,7 +20,7 @@ jobs:
 
       - name: Packer Build
         env:
-          TEMPLATE: ${{ github.event.inputs.imageType }}
+          TEMPLATE: ${{ inputs.imageType }}
         run: |
           cd pi-imager
           ./fetch-image.sh -b templates/${TEMPLATE}.json
@@ -32,7 +32,7 @@ jobs:
       - name: Tag Artifact
         id: tag 
         run: |
-          TAG="${{ github.event.inputs.imageType }}-$(./pi-imager/fetch-image.sh -v)"
+          TAG="${{ inputs.imageType }}-$(./pi-imager/fetch-image.sh -v)"
           echo ::set-output name=TAG::${TAG}
 
       - uses: actions/upload-artifact@v3

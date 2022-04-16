@@ -16,8 +16,8 @@ jobs:
           TAG=$(./pi-imager/fetch-image.sh -v | grep -Po "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}")
           CURRENT=$(jq ".builders[0].file_urls[0]" pi-imager/raspios.json | grep -Po "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" | head -n1)
           [ ${TAG} != ${CURRENT} ] && TAG="true"
+          echo $CURRENT
           echo $TAG
-          echo ${CURRENT%.zip}
           echo ::set-output name=TAG::${TAG}
 
   ssh:
@@ -48,3 +48,4 @@ jobs:
       - run: echo "upload packages"
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v2
+      - run: ls -la
