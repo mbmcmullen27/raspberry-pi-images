@@ -15,12 +15,12 @@ jobs:
         run: |
           TAG="$(./pi-imager/fetch-image.sh -v)"
           CURRENT=$(jq ".builders[0].file_urls[0]" pi-imager/raspios.json | grep -o "[^/]*\.zip")
-          [ $TAG -eq ${CURRENT%.zip} ] && TAG="true"
+          [ $TAG == ${CURRENT%.zip} ] && TAG="true"
           echo ::set-output name=TAG::${TAG}
 
   build-ssh:
     needs: check-release
-    if: ${{ needs.check-release.new-version }} == 'true' 
+    if: needs.check-release.new-version == 'true' 
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: ssh-enabled
