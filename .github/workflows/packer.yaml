@@ -32,7 +32,7 @@ jobs:
       - name: Tag Artifact
         id: tag 
         run: |
-          TAG="custom-$(./pi-imager/fetch-image.sh -v)"
+          TAG="${{ github.event.inputs.imageType }}-$(./pi-imager/fetch-image.sh -v)"
           echo ::set-output name=TAG::${TAG}
 
       - uses: actions/upload-artifact@v3
