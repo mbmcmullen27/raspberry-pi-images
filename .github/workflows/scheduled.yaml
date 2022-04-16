@@ -29,14 +29,19 @@ jobs:
 
   docker:
     needs: check-release
-    if: needs.check-release.new-version == 'true' 
+    if: ${{ needs.check-release.new-version }} == "true"
     runs-on: ubuntu-latest
     steps:
       - run: echo "docker build job placeholder"
   
   kube:
     needs: check-release
-    if: needs.check-release.new-version == 'true' 
+    if: ${{ needs.check-release.new-version }} == "true" 
     runs-on: ubuntu-latest
     steps:
       - run: echo "kubernetes build job placeholder"
+
+  release:
+    needs: [ssh, docker, kube]
+    steps:
+      - run: echo "upload packages"
