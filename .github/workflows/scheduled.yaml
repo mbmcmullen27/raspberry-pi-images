@@ -22,7 +22,7 @@ jobs:
 
   ssh:
     needs: check-release
-    if: needs.check-release.new-version == 'true' 
+    if: ${{ needs.check-release.new-version }} == "true"
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: ssh-enabled
