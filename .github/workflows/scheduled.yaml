@@ -33,9 +33,9 @@ jobs:
     steps:
       - run: echo "docker build job placeholder"
   
-  docker:
+  kube:
     needs: check-release
     if: needs.check-release.new-version == 'true' 
     runs-on: ubuntu-latest
     steps:
-      - run: echo "docker build job placeholder"
+      - run: echo "kubernetes build job placeholder"
