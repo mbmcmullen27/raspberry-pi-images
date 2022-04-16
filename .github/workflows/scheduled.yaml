@@ -14,7 +14,7 @@ jobs:
         id: version
         run: |
           RDATE='"[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}"'
-          TAG="$(./pi-imager/fetch-image.sh -v | grep -Po $RDATE)"
+          TAG="$(./pi-imager/fetch-image.sh -v | grep -Po ${RDATE})"
           CURRENT=$(jq ".builders[0].file_urls[0]" pi-imager/raspios.json | grep -Po $RDATE)
           [ ${TAG} != ${CURRENT} ] && TAG="true"
           echo $TAG
