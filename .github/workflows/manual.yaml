@@ -1,0 +1,20 @@
+name: RaspiOs ++
+on: 
+  workflow_dispatch:
+    inputs:
+      imageType:
+        description: 'Type of image to create'     
+        required: true
+        default: 'docker-host' 
+        type: choice
+        options:
+        - docker-host
+        - ssh-enabled
+        - kube-worker
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/packer.yaml
+        with:
+          imageType: ${{ github.event.inputs.imageType }}    

@@ -1,19 +1,10 @@
----
-
-name: RaspiOs ++
-
-on: 
-  workflow_dispatch:
+name: Build Image
+on:
+  workflow_call:
     inputs:
       imageType:
-        description: 'Type of image to create'     
         required: true
-        default: 'docker-host' 
-        type: choice
-        options:
-        - docker-host
-        - ssh-enabled
-        - kube-worker
+        type: string
 
 jobs:
   packer:
@@ -48,4 +39,3 @@ jobs:
         with:
           name: ${{ steps.tag.outputs.TAG }}
           path: pi-imager/custom-raspios-arm.img
-
