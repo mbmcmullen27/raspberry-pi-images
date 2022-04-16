@@ -1,4 +1,4 @@
-name: RaspiOs ++
+name: Select Image
 on: 
   workflow_dispatch:
     inputs:
@@ -13,8 +13,6 @@ on:
         - kube-worker
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./.github/workflows/packer.yaml
+    uses: ./.github/workflows/packer.yaml
         with:
           imageType: ${{ github.event.inputs.imageType }}    
