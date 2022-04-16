@@ -17,6 +17,7 @@ jobs:
           CURRENT=$(jq ".builders[0].file_urls[0]" pi-imager/raspios.json | grep -o "[^/]*\.zip")
           [ $TAG == ${CURRENT%.zip} ] && TAG="true"
           echo $TAG
+          echo ${CURRENT%.zip}
           echo ::set-output name=TAG::${TAG}
 
   ssh:
