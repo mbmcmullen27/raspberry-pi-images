@@ -31,6 +31,8 @@ jobs:
 
       - name: Create Release Tag
         id: tag 
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           TAG="custom-$(pi-imager/fetch-image.sh -v)"
           git tag $TAG 
