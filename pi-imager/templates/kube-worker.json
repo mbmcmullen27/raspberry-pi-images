@@ -57,9 +57,12 @@
         "sed -i 's/SSID-PASS/{{user `ssid-pass`}}/' /boot/wpa_supplicant.conf",
         "touch /boot/ssh",
         "sudo raspi-config nonint do_change_locale en_US.UTF-8",
+        "sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg",
+        "echo \"deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main\" | sudo tee /etc/apt/sources.list.d/kubernetes.list",
         "apt-get update",
         "apt upgrade -y",
-        "apt install -y apt-transport-https ca-certificates curl",
+        "apt install -y apt-transport-https ca-certificates curl kubelet kubeadm kubectl",
+        "sudo apt-mark hold kubelet kubeadm kubectl",
         "curl -fsSL https://get.docker.com -o get-docker.sh",
         "LC_ALL=\"en_US.UTF-8\" sh get-docker.sh",
         "usermod -aG docker pi",
@@ -73,7 +76,9 @@
         "net.bridge.bridge-nf-call-ip6tables = 1",
         "net.bridge.bridge-nf-call-iptables = 1",
         "EOF",
-        "sudo sysctl --system"
+        "sudo sysctl --system",
+        "sudo echo \" cgroup_enable=cpuset cgroup_enable=memory AND cgroup_memory=1\" >> /boot/cmdline.txt",
+        "sudo update-alternatives --set iptables /usr/sbin/iptables-legacy"
       ]
     }
   ]

@@ -24,7 +24,7 @@ jobs:
         run: |
           SSH_PATH=$(ls images/ssh*/custom-raspios-arm.tar.gz)
           DOCKER_PATH=$(ls images/docker*/custom-raspios-arm.tar.gz)
-          KUBE_PATH=$(ls images/kube*/custom-raspios-arm.tar.gz)
+          KUBE_PATH=""
           echo ::set-output name=SSH_PATH::${SSH_PATH}
           echo ::set-output name=DOCKER_PATH::${DOCKER_PATH}
           echo ::set-output name=KUBE_PATH::${KUBE_PATH}
@@ -55,7 +55,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path:  ${{ steps.get_paths.outputs.SSH_PATH }}
-          asset_name: raspios-docker-host.tar.gz
+          asset_name: raspios-ssh-enabled.tar.gz
           asset_content_type: application/gzip
 
       - name: Attach Docker Image to Release
