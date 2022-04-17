@@ -5,7 +5,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - name: Checkout Repository
@@ -31,10 +31,8 @@ jobs:
 
       - name: Create Release Tag
         id: tag 
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          TAG="custom-$(pi-imager/fetch-image.sh -v)"
+          TAG="$(pi-imager/fetch-image.sh -v)"
           git tag $TAG 
           git push origin $TAG
           echo ::set-output name=TAG::${TAG}
