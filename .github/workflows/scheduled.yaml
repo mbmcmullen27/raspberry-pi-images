@@ -39,7 +39,7 @@ jobs:
     if: ${{ needs.check-release.new-version }} == "true" 
     uses: ./.github/workflows/packer.yaml
     with:
-      imageType: kube-host
+      imageType: kube-worker
 
   release:
     if: ${{ needs.check-release.new-version }} == "true" 
