@@ -24,7 +24,7 @@ jobs:
         run: |
           SSH_PATH=$(ls images/ssh*/custom-raspios-arm.tar.gz)
           DOCKER_PATH=$(ls images/docker*/custom-raspios-arm.tar.gz)
-          KUBE_PATH=""
+          KUBE_PATH=$(ls images/docker*/custom-raspios-arm.tar.gz)
           echo ::set-output name=SSH_PATH::${SSH_PATH}
           echo ::set-output name=DOCKER_PATH::${DOCKER_PATH}
           echo ::set-output name=KUBE_PATH::${KUBE_PATH}
