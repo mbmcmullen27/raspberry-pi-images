@@ -67,3 +67,13 @@ jobs:
           asset_path:  ${{ steps.get_paths.outputs.DOCKER_PATH }}
           asset_name: raspios-docker-host.tar.gz
           asset_content_type: application/gzip
+      
+      - name: Attach Kube Image to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path:  ${{ steps.get_paths.outputs.KUBE_PATH }}
+          asset_name: raspios-kube-worker.tar.gz
+          asset_content_type: application/gzip

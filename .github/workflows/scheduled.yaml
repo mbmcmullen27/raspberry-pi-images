@@ -37,9 +37,9 @@ jobs:
   kube:
     needs: check-release
     if: ${{ needs.check-release.new-version }} == "true" 
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "kubernetes build job placeholder"
+    uses: ./.github/workflows/packer.yaml
+    with:
+      imageType: kube-host
 
   release:
     if: ${{ needs.check-release.new-version }} == "true" 
