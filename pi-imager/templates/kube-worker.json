@@ -13,7 +13,12 @@
       "file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-04-07/2022-04-04-raspios-bullseye-armhf-lite.img.xz.sha256",
       "file_checksum_type": "sha256",
       "file_target_extension": "xz",
-      "file_unarchive_cmd": ["xzcat", "$ARCHIVE_PATH", ">", "$MOUNTPOINT"],
+      "file_unarchive_cmd": [
+        "xzcat",
+        "$ARCHIVE_PATH",
+        ">",
+        "$MOUNTPOINT"
+      ],
       "image_build_method": "resize",
       "image_path": "custom-raspios-arm.img",
       "image_size": "3G",
