@@ -12,8 +12,8 @@ jobs:
     name: Packer Build  
 
     steps:
-      - name: Install moreutils
-        run: sudo apt-get update -y && sudo apt-get install -y moreutils
+      - name: Install moreutils and xz-utils
+        run: sudo apt-get update -y && sudo apt-get install -y moreutils xz-utils
 
       - name: Checkout Repository
         uses: actions/checkout@master  
