@@ -1,3 +1,2 @@
 pi-imager/raspios-arm.img
-pi-imager/imgs/*.img
-pi-imager/imgs/*.zip
+pi-imager/imgs/*
