@@ -31,8 +31,8 @@ EOF
 }
 
 function Build() {
-  if [[ -f $1 ]]; 
-  then cp $1 raspios.json
+  if [[ -f "templates/$1.json" ]]; 
+  then cp templates/$1.json raspios.json
   else cp templates/ssh-enabled.json raspios.json
   fi
 
@@ -68,8 +68,16 @@ function UpdateTemplate() {
   fi 
 
   image=$url/$img/$file
-   jq ".builders[0].file_urls[0]=\"$image\" | .builders[0].file_checksum_url=\"${image}.sha256\" | .builders[0].file_target_extension =\"${file##*.}\"" \
+  ext=${file##*.}
+
+  jq ".builders[0].file_urls[0]=\"$image\" | .builders[0].file_checksum_url=\"${image}.sha256\" | .builders[0].file_target_extension =\"${ext}\"" \
     $1 | sponge $1
+
+  if [ "$ext" = "xz" ]; then 
+    jq '.builders[0] |= if has("file_unarchive_cmd") then .file_unarchive_cmd=["xz", "-d", "$ARCHIVE_PATH"] else . += {"file_unarchive_cmd":["xz", "-d", "$ARCHIVE_PATH"]} end' $1 | sponge $1
+  elif [ "$ext" = "zip" ]; then
+    jq '.builders[0].file_unarchive_cmd+=["tar", "-xf", "$ARCHIVE_PATH"]' $1 | sponge $1
+  fi
 
   echo "Updated $1"
 }
