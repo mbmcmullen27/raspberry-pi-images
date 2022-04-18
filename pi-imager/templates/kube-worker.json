@@ -63,7 +63,7 @@
         
         "apt-get update",
         "apt upgrade -y",
-        "apt install -y apt-transport-https ca-certificates curl kubelet=1.22.8 kubeadm=1.22.8 kubectl=1.22.8",
+        "apt install -y apt-transport-https ca-certificates curl kubelet=1.22.8-00 kubeadm=1.22.8-00 kubectl=1.22.8-00",
         "sudo apt-mark hold kubelet kubeadm kubectl",
         
         "curl -fsSL https://get.docker.com -o get-docker.sh",
