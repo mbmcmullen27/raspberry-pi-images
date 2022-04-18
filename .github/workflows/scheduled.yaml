@@ -20,9 +20,9 @@ jobs:
           echo $TAG
           echo ::set-output name=TAG::${TAG}
 
-  update:
+  update-version:
     needs: check-release
-    if: ${{ needs.check-release.new-version }} == "testing"
+    if: ${{ needs.check-release.outputs.new-version }} == "testing"
     runs-on: ubuntu-latest
     steps:
       - name: Install moreutils
@@ -37,19 +37,19 @@ jobs:
           commit_message: Automated Version Bump
 
   ssh:
-    needs: update
+    needs: update-version
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: ssh-enabled
 
   docker:
-    needs: update
+    needs: update-version
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: docker-host
   
   kube:
-    needs: update
+    needs: update-version
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: kube-worker
