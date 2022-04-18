@@ -11,7 +11,7 @@ function Fetch() {
 } 
 
 img=$(Fetch $url/ "raspios[^\"/]*")
-file=$(Fetch $url/$img/ "[^\.]*.zip")
+file=$(Fetch $url/$img/ "[^\.]*.(zip|xz)")
 
 function Help() {
   cat <<EOF
@@ -68,7 +68,7 @@ function UpdateTemplate() {
   fi 
 
   image=$url/$img/$file
-  jq ".builders[0].file_urls[0]=\"$image\" | .builders[0].file_checksum_url=\"${image}.sha256\"" \
+  jq ".builders[0].file_urls[0]=\"$image\" | .builders[0].file_checksum_url=\"${image}.sha256\" | .builders[0].file_target_extension =\"${file##*.}" \
     $1 | sponge $1
 
   echo "Updated $1"
