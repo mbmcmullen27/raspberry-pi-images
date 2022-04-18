@@ -80,7 +80,7 @@
         "net.bridge.bridge-nf-call-iptables = 1",
         "EOF",
         "sudo sysctl --system",
-        "sudo sed '$s/$/ cgroup_enable=cpuset cgroup_enable=memory AND cgroup_memory=1' /boot/cmdline.txt",
+        "sudo sed -i '$s/$/ cgroup_enable=cpuset cgroup_enable=memory AND cgroup_memory=1/' /boot/cmdline.txt",
         "sudo update-alternatives --set iptables /usr/sbin/iptables-legacy"
       ]
     }

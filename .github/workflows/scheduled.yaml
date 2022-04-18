@@ -25,6 +25,8 @@ jobs:
     if: ${{ needs.check-release.new-version }} == "testing"
     runs-on: ubuntu-latest
     steps:
+      - name: Install moreutils
+        run: sudo apt-get update -y && sudo apt-get install -y moreutils
       - name: Checkout Repository
         uses: actions/checkout@master
       - name: Update Templates
