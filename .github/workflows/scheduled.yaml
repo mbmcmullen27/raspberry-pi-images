@@ -20,28 +20,37 @@ jobs:
           echo $TAG
           echo ::set-output name=TAG::${TAG}
 
-  ssh:
+  update:
     needs: check-release
-    if: ${{ needs.check-release.new-version }} == "true"
+    if: ${{ needs.check-release.new-version }} == "testing"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@master
+      - name: Update Templates
+        run: ./pi-imager/fetch-image.sh -u  
+      - name: Commit Version Bump
+        uses: stefanzweifel/git-auto-commit-action@v4
+        commit_message: Automated Version Bump
+
+  ssh:
+    needs: update
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: ssh-enabled
 
   docker:
-    needs: check-release
-    if: ${{ needs.check-release.new-version }} == "true"
+    needs: update
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: docker-host
   
   kube:
-    needs: check-release
-    if: ${{ needs.check-release.new-version }} == "true" 
+    needs: update
     uses: ./.github/workflows/packer.yaml
     with:
       imageType: kube-worker
 
   release:
-    if: ${{ needs.check-release.new-version }} == "true" 
     needs: [ssh, docker, kube]
     uses: ./.github/workflows/release.yaml
