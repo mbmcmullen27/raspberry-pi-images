@@ -70,6 +70,7 @@
         "uuid=$(blkid /dev/sda1 | grep -oP '(?<= UUID=\")[^\"]*')",
         "echo 'UUID=\"$uuid\"    /srv/nfs    auto    nosuid,nodev,nofail,noatime 0 0' | sudo tee /etc/fstab",
         "sudo mkdir -p /srv/nfs",
+        "sudo chmod 777 -R /srv/nfs",
         "echo '/nfs/srv/    {{user `subnet`}}' | tee /etc/exports"
       ]
     }
