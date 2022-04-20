@@ -11,6 +11,7 @@ on:
         - docker-host
         - ssh-enabled
         - kube-worker
+        - nfs-server
 jobs:
   build:
     uses: ./.github/workflows/packer.yaml
