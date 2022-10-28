@@ -6,7 +6,7 @@ jobs:
   check-release:
     runs-on: ubuntu-latest
     outputs:
-      new-version: ${{ steps.version.TAG }}
+      new-version: ${{ steps.version.outputs.TAG }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master  
@@ -18,7 +18,7 @@ jobs:
           [ ${TAG} != ${CURRENT} ] && TAG="true"
           echo $CURRENT
           echo $TAG
-          echo ::set-output name=TAG::${TAG}
+          echo "TAG=${TAG}" >> $GITHUB_OUTPUT
 
   update-version:
     needs: check-release
