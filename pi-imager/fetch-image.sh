@@ -1,7 +1,7 @@
 #!/bin/bash
 [ -z $LOCAL_BUILD ] && LOCAL_BUILD=false || LOCAL_BUILD=true
 
-url="https://downloads.raspberrypi.org/raspios_lite_armhf/images"
+url="https://downloads.raspberrypi.org/raspios_lite_arm64/images"
 
 function Fetch() {
   curl -s $1 |\
@@ -37,7 +37,7 @@ function Build() {
   fi
 
   if [ $LOCAL_BUILD != true ]; then
-     docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build raspios.json
+     docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm:1.0.0 build raspios.json
   else 
     sudo -E TMPDIR=/var/tmp packer build \
       -var "hostname=${PKR_HOSTNAME-'raspberrypi'}" \

@@ -15,9 +15,9 @@ jobs:
         run: |
           TAG=$(./pi-imager/fetch-image.sh -v | grep -Po "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}")
           CURRENT=$(jq ".builders[0].file_urls[0]" pi-imager/raspios.json | grep -Po "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" | head -n1)
+          echo "current version: $CURRENT
+          echo "available version: $TAG"
           [ ${TAG} != ${CURRENT} ] && TAG="true"
-          echo $CURRENT
-          echo $TAG
           echo "TAG=${TAG}" >> $GITHUB_OUTPUT
 
   update-version:

@@ -20,6 +20,11 @@ imager requires pip3 libraries
 
 ## Running locally with Packer
 - initialize packer build machine with following these [instrunction](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
+    - needs: 
+        - qemu-user-static 
+        - qemu-utils
+        - [packer-builder-arm](https://github.com/mkaczanowski/packer-builder-arm)
+            - installed into `~/.packer.d/plugins`
 
 ## running from docker (this is how this repo produces releases)
 - detailed instructions found in the [packer-builder-arm repo](https://github.com/mkaczanowski/packer-builder-arm) 

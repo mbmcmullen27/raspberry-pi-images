@@ -1,2 +1,2 @@
-pi-imager/raspios-arm.img
-pi-imager/imgs/*
+pi-imager/.packer_*
+**/*.img
