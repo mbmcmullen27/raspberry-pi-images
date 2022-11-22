@@ -1,25 +1,8 @@
-# raspberry-spi
-raspberry pi spi device configuration
-
-imager requires packages
-- libatlas-base-dev
-- libopenjp2-7
-- python3-pil
-- python3-numpy
-- python3-pip
-- python-rpi.gpio (button)
-- python3-rpi.gpio (button)
-- parted (for packer)
-- packer
-
-imager requires pip3 libraries
-- adafruit-circuitpython-display-text==2.21.1
-    - the latest version, 2.21.2, causes an 'undefined' error
-- adafruit-circuitpython-st7789
-- adafruit-blinka-displayio
+# raspberry-pi-images
+raspberry pi image generation
 
 ## Running locally with Packer
-- initialize packer build machine with following these [instrunction](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
+- initialize packer build machine with following these [instructions](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
     - needs: 
         - qemu-user-static 
         - qemu-utils

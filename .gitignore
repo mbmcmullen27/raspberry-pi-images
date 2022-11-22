@@ -1,2 +1,3 @@
+pi-imager/raspios.json
 pi-imager/.packer_*
 **/*.img
