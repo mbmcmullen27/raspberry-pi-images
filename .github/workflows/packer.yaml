@@ -27,14 +27,14 @@ jobs:
 
       - name: Packer Build
         run: |
-          echo  ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          docker pull ghcr.io/mbmcmullen27/raspberry-pi-images:latest
+          echo ${GITHUB_REPOSITORY,,} 
+          docker pull ghcr.io/${GITHUB_REPOSITORY,,}:latest
           docker run \
               --privileged=true \
               -v /dev:/dev \
               -v $(pwd)docker/src:/home/builder/src \
               -e script=${{ inputs.imageType }} \
-              ghcr.io/mbmcmullen27/raspberry-pi-images:latest
+              ghcr.io/${GITHUB_REPOSITORY,,}:latest
           cd ..
       
       - name: Compress Image
