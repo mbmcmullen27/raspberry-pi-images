@@ -24,11 +24,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Pull Image
+        run: docker pull ghcr.io/${GITHUB_REPOSITORY,,}:latest
       - name: Packer Build
         run: |
           echo ${GITHUB_REPOSITORY,,} 
-          docker pull ghcr.io/${GITHUB_REPOSITORY,,}:latest
           docker run \
               --privileged=true \
               -v /dev:/dev \
