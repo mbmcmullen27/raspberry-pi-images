@@ -1,8 +1,7 @@
 {
   "variables": {
     "hostname": "raspberrypi",
-    "ssid-name": "",
-    "ssid-pass": ""
+    "script": ""
   },
   "builders": [
     {
@@ -55,7 +54,7 @@
     },
     {
       "type": "file",
-      "source": "src/kube-worker.sh",
+      "source": "src/init-scripts/selected.sh",
       "destination": "/init.sh"
     },
     {
