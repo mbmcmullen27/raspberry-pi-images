@@ -1,7 +1,7 @@
 #!/bin/bash
 [ -z $LOCAL_BUILD ] && LOCAL_BUILD=false || LOCAL_BUILD=true
 
-url="https://downloads.raspberrypi.org/raspios_lite_arm64/images"
+url="https://downloads.raspberrypi.org/raspios_lite_arm64/images/"
 
 function Fetch() {
   curl -s $1 |\

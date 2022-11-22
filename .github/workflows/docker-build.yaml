@@ -8,7 +8,7 @@ on:
       - README.md
       - .gitignore
       - .github/**
-      - pi-imager
+      - pi-imager/**
   workflow_dispatch:
     
 jobs:
