@@ -18,8 +18,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@master  
 
-      - name: Log in to registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Packer Build
         run: |
@@ -28,7 +32,7 @@ jobs:
               -v /dev:/dev \
               -v $(pwd)docker/src:/home/builder/src \
               -e script=${{ inputs.imageType }} \
-              ghcr.io/mbmcmullen27/raspberry-pi-images
+              ghcr.io/mbmcmullen27/raspberry-pi-images:latest
           cd ..
       
       - name: Compress Image
