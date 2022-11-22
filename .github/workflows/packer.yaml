@@ -27,6 +27,8 @@ jobs:
 
       - name: Packer Build
         run: |
+          pwd
+          ls -lah
           echo ${GITHUB_REPOSITORY,,} 
           docker run \
               --privileged=true \
