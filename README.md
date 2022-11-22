@@ -22,6 +22,7 @@ docker run \
     --privileged=true \
     -v /dev:/dev \
     -v $(pwd)/src:/home/builder/src \
+    -e script=<image-init-script>
     -it builder 
 
 # running packer locally
