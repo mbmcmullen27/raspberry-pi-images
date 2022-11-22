@@ -29,11 +29,10 @@ jobs:
         run: |
           pwd
           ls -lah
-          echo ${GITHUB_REPOSITORY,,} 
           docker run \
               --privileged=true \
               -v /dev:/dev \
-              -v $(pwd)docker/src:/home/builder/src \
+              -v $(pwd)/docker/src:/home/builder/src \
               -e script=${{ inputs.imageType }} \
               ghcr.io/mbmcmullen27/raspberry-pi-images:20221122.2 
           cd ..
