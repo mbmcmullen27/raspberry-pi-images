@@ -27,14 +27,12 @@ jobs:
 
       - name: Packer Build
         run: |
-          pwd
-          ls -lah
           docker run \
               --privileged=true \
               -v /dev:/dev \
               -v $(pwd)/docker/src:/home/builder/src \
               -e script=${{ inputs.imageType }} \
-              ghcr.io/mbmcmullen27/raspberry-pi-images:20221122.2 
+              ghcr.io/mbmcmullen27/raspberry-pi-images:20221122.3 
           cd ..
       
       - name: Compress Image
