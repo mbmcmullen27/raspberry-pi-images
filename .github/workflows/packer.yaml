@@ -20,12 +20,16 @@ jobs:
 
       - name: Packer Build
         run: |
-          cd pi-imager
-          ./fetch-image.sh -b ${{ inputs.imageType }}
+          docker run \
+              --privileged=true \
+              -v /dev:/dev \
+              -v $(pwd)docker/src:/home/builder/src \
+              -e script=${{ inputs.imageType }} \
+              ghcr.io/mbmcmullen27/raspberry-pi-images
           cd ..
       
       - name: Compress Image
-        run: tar -czvf custom-raspios-arm.tar.gz pi-imager/custom-raspios-arm.img
+        run: tar -czvf custom-raspios-arm.tar.gz docker/src/custom-raspios-arm.img
 
       - name: Tag Artifact
         id: tag 

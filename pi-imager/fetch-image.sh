@@ -58,6 +58,8 @@ function Update() {
     for f in templates/*.json; do
       UpdateTemplate $f
     done
+
+    UpdateTemplate ../docker/src/raspios.json
   fi
 }
 
