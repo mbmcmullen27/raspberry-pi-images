@@ -24,8 +24,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Pull Image
-        run: docker pull ghcr.io/${GITHUB_REPOSITORY,,}:latest
+
       - name: Packer Build
         run: |
           echo ${GITHUB_REPOSITORY,,} 
@@ -34,7 +33,7 @@ jobs:
               -v /dev:/dev \
               -v $(pwd)docker/src:/home/builder/src \
               -e script=${{ inputs.imageType }} \
-              ghcr.io/${GITHUB_REPOSITORY,,}:latest
+              ghcr.io/mbmcmullen27/raspberry-pi-images:20221122.2 
           cd ..
       
       - name: Compress Image
