@@ -27,6 +27,7 @@ jobs:
 
       - name: Packer Build
         run: |
+          echo  ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker pull ghcr.io/mbmcmullen27/raspberry-pi-images:latest
           docker run \
               --privileged=true \
