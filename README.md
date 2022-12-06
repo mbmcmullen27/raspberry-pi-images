@@ -1,5 +1,39 @@
 # raspberry-pi-images
 raspberry pi image generation
+- This repo produces raspberry pi os images that are ready for common tasks. Namely:
+    - kubernetes nodes
+        - enables ssh
+        - installs:
+            - kubeadm
+            - kubectl
+            - kubelet
+            - docker
+            - curl
+    - docker host
+        - enables ssh
+        - installs:
+            - docker
+            - curl
+    - ssh enabled 
+        - enables ssh
+        - installs:
+            - curl
+            
+- Simply download the desired image, decompress, and flash to an sd card
+    ```sh
+    # List latest available release asset names, select one and export as an env var $NAME
+    curl -s https://api.github.com/repos/mbmcmullen27/raspberry-pi-images/releases/latest | jq '.assets[].name'
+    export NAME=raspios-ssh-enabled.tar.gz
+    
+    # Download the archive
+    curl -s https://api.github.com/repos/mbmcmullen27/raspberry-pi-images/releases/latest \
+        | jq -r --arg NAME = "$NAME" '.assets[] | select( .name == $NAME).browser_download_url' \
+        | wget -qi -
+        
+    # Extract image and flash the card
+    tar -xvf $NAME
+    sudo dd if=docker/src/custom-raspios-arm.img of=/dev/<SD CARD DEVICE NAME> bs=4M status=progress conv=fsync
+    ```
 
 ## Running Templates Locally With Packer
 - initialize packer build machine with following these [instructions](https://linuxhit.com/build-a-raspberry-pi-image-packer-packer-builder-arm/)
