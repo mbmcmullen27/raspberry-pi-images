@@ -54,13 +54,13 @@ raspberry pi image generation
     ```
 
 ## Running Builder With Docker 
-
+- See packages for latest image tag
+- Provide an install script to be run on the base image with packer
 ```sh
-# running in docker
 docker run \
     --privileged=true \
     -v /dev:/dev \
     -v $(pwd)/src:/home/builder/src \
     -e script=<image-init-script>
-    -it builder 
+    -it ghcr.io/mbmcmullen27/raspberry-pi-images:<latest image tag>
 ```
