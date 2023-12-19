@@ -11,7 +11,6 @@
         "https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2022-09-26/2022-09-22-raspios-bullseye-arm64-lite.img.xz"
       ],
       "file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2022-09-26/2022-09-22-raspios-bullseye-arm64-lite.img.xz.sha256",
-      "file_checksum_type": "file",
       "file_target_extension": "xz",
       "file_unarchive_cmd": [
         "xz",
